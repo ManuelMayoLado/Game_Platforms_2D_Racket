@@ -563,8 +563,7 @@
                                                           "green")
                                                          (else "black")))
               (por-cadros-e ; pantalla do xogo en sí
-               (if (xogo-cuadricula x) #t #f) x
-               cadro-r lista-pasable
+               (if (xogo-cuadricula x) #t #f) x cadro-r lista-pasable
                (place-image (img-pj x)
                             (punto-x (pj-punto-pantalla (xogo-pj x)))
                             (cond
@@ -716,12 +715,12 @@
       (xogo-vel-c x)
       (cond    ;; xogo-cuadricula
         ((and
-          (equal? (xogo-estado x) "edicion")
+          (member (xogo-estado x) (list "edicion" "xogo"))
           (equal? t #\c)
           (equal? (xogo-cuadricula x) #f))
          #t)
         ((and
-          (equal? (xogo-estado x) "edicion")
+          (member (xogo-estado x) (list "edicion" "xogo"))
           (equal? t #\c)
           (equal? (xogo-cuadricula x) #t))
          #f)
@@ -1352,6 +1351,7 @@
      (cond 
        ((and
          (xogo-cuadricula x)
+         (equal? (xogo-estado x) "edicion")
          ;(> (dist-puntos (punto-cadro->punto (punto->punto-cadro (punto px-v py-v) l-cadrado) l-cadrado) (pj-punto (xogo-pj x))) l-cadrado)
          (not (member (punto->punto-cadro (punto px-v py-v) l-cadrado) lista-puntos))
          (not (member (punto->punto-cadro (punto px-v py-v) l-cadrado) lista-puntos-creados))
@@ -1414,16 +1414,16 @@
         ((and
           (member (xogo-estado x) (list "xogo->pantallas"))
           (clic-xogo? px py))
-         #;(when (file-exists? "mapa-edicion.txt")
-           (set! lista-puntos (texto->l-puntos (file->value "mapa-edicion.txt")))) ;;;;;;;;;;;;;;;;;;;;; cargar arquivos
-         #;(set! VECTOR-PUNTOS-ORDENADOS (ordenar-punto-rev 0 0 lista-puntos empty n-c-alto n-c-ancho))
-         #;(set! fondo-estatico
+         (when (file-exists? "fases/1/puntos.txt")
+           (set! lista-puntos (texto->l-puntos (file->value "fases/1/puntos.txt"))))
+         (set! VECTOR-PUNTOS-ORDENADOS (ordenar-punto-rev 0 0 lista-puntos empty n-c-alto n-c-ancho))
+         (set! fondo-estatico
                (freeze (por-cadros #t cadrado-s-2 lista-puntos-creados 
                                    (pantalla-con-cadros cadrado-s lista-puntos
                                                         (pantalla-con-cadros cadrado-fin lista-puntos-ganar fondo-0)))))
-         #;(set! fondo-estatico-cuadricula
+         (set! fondo-estatico-cuadricula
                (freeze (por-cuadricula #t fondo-estatico)))
-         "inicio") ;sel-pantallas-x
+         "xogo") ;sel-pantallas-x
         ((and
           (member (xogo-estado x) (list "edicion->atras"))
           (clic-edicion? px py))
