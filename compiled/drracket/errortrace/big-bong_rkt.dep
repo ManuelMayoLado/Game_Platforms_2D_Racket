@@ -1,0 +1,1 @@
+("6.1.1" ("26c22bc94dabb5de1eb750a45f0c3cd968457552" . "0e1a1cb89e095a3c7ebdca98885278cd251cd938") (collects #"racket" #"gui.rkt") #"C:\\Users\\Usuario\\Desktop\\githup\\Xogo-plataformas-en-Racket\\constantes.rkt" (collects #"2htdp" #"image.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"mrlib" #"image-core.rkt"))
